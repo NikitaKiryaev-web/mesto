@@ -1,0 +1,13 @@
+.profile__edit-button {
+  cursor: pointer;
+  background-image: url(../../../images/Edit\ Button.png);
+  background-size: cover;
+  background-color: black;
+  border: none;
+  width: 24px;
+  height: 24px;
+  align-self: flex-end;
+  border: 0;
+  padding: 0;
+  margin-left: 17px;
+}
