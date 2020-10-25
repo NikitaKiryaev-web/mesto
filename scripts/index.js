@@ -10,13 +10,13 @@ let form = document.querySelector('.popup__form');
 
 
 function showPopup() {
-  popup.classList.add('popup__opened')
+  popup.classList.add('popup_opened')
   nameField.value = nameTitle.textContent;
   professionField.value = professionTitle.textContent;
 };
 
 function closePopup() {
-  popup.classList.remove('popup__opened')
+  popup.classList.remove('popup_opened')
 };
 
 function formSubmit(event) {
