@@ -22,7 +22,6 @@ let popupIllustration = popupImage.querySelector('.popup__illustration');
 let popupDescription = popupImage.querySelector('.popup__description');
 const photosCard = photos.querySelector('.photos__card');
 
-
 const initialCards = [
   {
       name: 'Архыз',
@@ -50,9 +49,23 @@ const initialCards = [
   }
 ];
 
+// Функция очистки сообщений ошибок при повторном открытии попапа
+function clearErrors (popup) {
+  const errors = popup.querySelectorAll('.popup__error');
+  const inputs = popup.querySelectorAll('.popup__input');
+  errors.forEach((error) => {
+    error.textContent = '';
+  });
+
+  inputs.forEach((input) => {
+    input.classList.remove('popup__input_type_error');
+  });
+}
+
 // Общая функция открытия всех попапов
 function showPopup(popup) {
   popup.classList.add('popup_opened');
+  clearErrors(popup);
 }
 
 // Общая функция закрытия всех попапов
@@ -67,6 +80,8 @@ function showPopupProfile() {
 };
 
 function showPopupCard() {
+  titleField.value = '';
+  urlField.value = '';
   showPopup(popupCard);
 };
 
@@ -76,7 +91,6 @@ function showPopupImage(link, name) {
   popupDescription.textContent = name;  
   showPopup(popupImage);
 }
-
 
 
 
@@ -141,10 +155,6 @@ initialCards.forEach((item) => pushCard(addCard(item.name, item.link)));
 
 
 
-
-
-
-
 addButton.addEventListener('click', showPopupCard);
 
 editButton.addEventListener('click', showPopupProfile);
@@ -158,4 +168,7 @@ closeButtonImage.addEventListener('click', () => closePopup(popupImage));
 profileForm.addEventListener('submit', profileFormSubmit);
 
 cardForm.addEventListener('submit', cardFormSubmit);
+
+
+
 
