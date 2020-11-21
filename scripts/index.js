@@ -5,11 +5,12 @@ const popupProfile = document.querySelector('.popup_profile');
 const closeButtonProfile = popupProfile.querySelector('.popup__close');
 const nameField = popup.querySelector('.popup__input_type_name');
 const professionField = popup.querySelector('.popup__input_type_profession');
-const saveButton = popup.querySelector('.popup__save-button');
+const saveButtonProfile = popupProfile.querySelector('.popup__save-button');
 const nameTitle = document.querySelector('.profile__title');
 const professionTitle = document.querySelector('.profile__subtitle');
 const profileForm = popupProfile.querySelector('.popup__form');
 const popupCard = document.querySelector('.popup_card');
+const saveButtonCard = popupCard.querySelector('.popup__save-button');
 const closeButtonCard = popupCard.querySelector('.popup__close');
 const cardForm = popupCard.querySelector('.popup__form_card');
 const photos = document.querySelector('.photos');
@@ -69,6 +70,7 @@ function showPopup(popup) {
   popup.classList.add('popup_opened');
   clearErrors(popup);
   document.addEventListener('keydown', popupCloseByKeydown);
+  
 }
 
 
@@ -82,6 +84,8 @@ function closePopup(popup) {
 function showPopupProfile() {
   nameField.value = nameTitle.textContent;
   professionField.value = professionTitle.textContent;
+  saveButtonProfile.classList.remove('popup__save-button_disabled');
+  saveButtonProfile.disabled = false;
   showPopup(popupProfile);
 };
 
@@ -89,6 +93,8 @@ function showPopupCard() {
   titleField.value = '';
   urlField.value = '';
   showPopup(popupCard);
+  saveButtonCard.classList.add('popup__save-button_disabled');
+  saveButtonCard.disabled = true;
 };
 
 function showPopupImage(link, name) {

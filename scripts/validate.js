@@ -5,7 +5,8 @@ const validationConfig = {
   inactiveButtonClass: 'popup__save-button_disabled',
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_visible'
-}; 
+};
+
 
 
 function showError (form, input, config) {
@@ -30,19 +31,20 @@ function checkInputValidity (form, input, config) {
 }
 
 function setButtonState (button, isActive, config) {
-  if (isActive) {
-    button.classList.remove(config.inactiveButtonClass);
-    button.disabled = false;
-  }
-  else {
+  if (!isActive) {
     button.classList.add(config.inactiveButtonClass);
     button.disabled = true;
+  }
+  else {
+    button.classList.remove(config.inactiveButtonClass);
+    button.disabled = false;
   }
 }
 
 function setEventListeners (form, config) {
-  const inputList = form.querySelectorAll(config.inputSelector);
+  const inputList = Array.from(form.querySelectorAll(config.inputSelector));
   const submitButton = form.querySelector(config.submitButtonSelector);
+  setButtonState(submitButton, form.checkValidity(), config);
   inputList.forEach((input) => {
     input.addEventListener('input', () => {
       checkInputValidity(form, input, config)
@@ -52,7 +54,7 @@ function setEventListeners (form, config) {
 }
 
 function enableValidation (config) {
-  const formList = document.querySelectorAll(config.formSelector);
+  const formList = Array.from(document.querySelectorAll(config.formSelector));
   formList.forEach((form) => {
     setEventListeners(form, config);
     
@@ -60,8 +62,7 @@ function enableValidation (config) {
       evt.preventDefault();
     });
 
-    const submitButton = form.querySelector(config.submitButtonSelector);
-    setButtonState(submitButton, form.checkValidity(), config)
+    
   });
 }
 
