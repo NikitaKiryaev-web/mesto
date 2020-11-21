@@ -65,6 +65,4 @@ function enableValidation (config) {
   });
 }
 
-//function resetErrors (config)
-
 enableValidation(validationConfig);
