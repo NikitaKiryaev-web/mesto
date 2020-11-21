@@ -62,15 +62,21 @@ function clearErrors (popup) {
   });
 }
 
+
+
 // Общая функция открытия всех попапов
 function showPopup(popup) {
   popup.classList.add('popup_opened');
   clearErrors(popup);
+  document.addEventListener('keydown', popupCloseByKeydown);
 }
+
+
 
 // Общая функция закрытия всех попапов
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', popupCloseByKeydown);
 }
 
 function showPopupProfile() {
@@ -150,8 +156,24 @@ function pushCard (cardElement) {
   photos.prepend(cardElement);
 }
 
-initialCards.forEach((item) => pushCard(addCard(item.name, item.link)));
+function popupCloseByClick(evt) {
+  if (evt.target.classList.contains('popup')) {
+    closeOpenedPopup();
+  }
+}
 
+function closeOpenedPopup() {
+  const openedPopup = document.querySelector('.popup_opened');
+  openedPopup.classList.remove('popup_opened');
+}
+
+function popupCloseByKeydown (evt) {
+  if (evt.key === 'Escape') {
+    closeOpenedPopup();
+  }
+}
+
+initialCards.forEach((item) => pushCard(addCard(item.name, item.link)));
 
 
 
@@ -169,6 +191,5 @@ profileForm.addEventListener('submit', profileFormSubmit);
 
 cardForm.addEventListener('submit', cardFormSubmit);
 
-
-
+document.addEventListener('click', popupCloseByClick);
 
