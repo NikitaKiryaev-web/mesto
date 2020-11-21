@@ -1,10 +1,9 @@
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
-const popup = document.querySelector('.popup');
 const popupProfile = document.querySelector('.popup_profile');
 const closeButtonProfile = popupProfile.querySelector('.popup__close');
-const nameField = popup.querySelector('.popup__input_type_name');
-const professionField = popup.querySelector('.popup__input_type_profession');
+const nameField = popupProfile.querySelector('.popup__input_type_name');
+const professionField = popupProfile.querySelector('.popup__input_type_profession');
 const saveButtonProfile = popupProfile.querySelector('.popup__save-button');
 const nameTitle = document.querySelector('.profile__title');
 const professionTitle = document.querySelector('.profile__subtitle');
@@ -19,9 +18,8 @@ const urlField = popupCard.querySelector('.popup__input_type_url');
 const popupImage = document.querySelector('.popup_image');
 const closeButtonImage = popupImage.querySelector('.popup__close');
 const popupImageContainer = popupImage.querySelector('.popup__container');
-let popupIllustration = popupImage.querySelector('.popup__illustration');
-let popupDescription = popupImage.querySelector('.popup__description');
-const photosCard = photos.querySelector('.photos__card');
+const popupIllustration = popupImage.querySelector('.popup__illustration');
+const popupDescription = popupImage.querySelector('.popup__description');
 
 const initialCards = [
   {
@@ -52,8 +50,8 @@ const initialCards = [
 
 // Функция очистки сообщений ошибок при повторном открытии попапа
 function clearErrors (popup) {
-  const errors = popup.querySelectorAll('.popup__error');
-  const inputs = popup.querySelectorAll('.popup__input');
+  const errors = Array.from(popup.querySelectorAll('.popup__error'));
+  const inputs = Array.from(popup.querySelectorAll('.popup__input'));
   errors.forEach((error) => {
     error.textContent = '';
   });
@@ -68,7 +66,6 @@ function clearErrors (popup) {
 // Общая функция открытия всех попапов
 function showPopup(popup) {
   popup.classList.add('popup_opened');
-  clearErrors(popup);
   document.addEventListener('keydown', popupCloseByKeydown);
   
 }
@@ -86,12 +83,14 @@ function showPopupProfile() {
   professionField.value = professionTitle.textContent;
   saveButtonProfile.classList.remove('popup__save-button_disabled');
   saveButtonProfile.disabled = false;
+  clearErrors(popupProfile);
   showPopup(popupProfile);
 };
 
 function showPopupCard() {
   titleField.value = '';
   urlField.value = '';
+  clearErrors(popupCard);
   showPopup(popupCard);
   saveButtonCard.classList.add('popup__save-button_disabled');
   saveButtonCard.disabled = true;
@@ -118,7 +117,7 @@ function cardFormSubmit(event) {
   const name = titleField.value;
   const link = urlField.value;
   
-  pushCard(addCard(name, link));
+  addCard(createCard(name, link));
 
   closePopup(popupCard);
 }
@@ -134,7 +133,7 @@ function addLike(event) {
 }
 
 // Функция инициализации новой карточки
-function addCard (imageName, imageLink) {
+function createCard (imageName, imageLink) {
   const cardTemplate = document.querySelector('#card-template').content;
   const cardElement = cardTemplate.cloneNode(true);
   const photosIllustration = cardElement.querySelector('.photos__illustration');
@@ -158,7 +157,7 @@ function addCard (imageName, imageLink) {
 }
 
 // Функция добавления новой карточки в разметку
-function pushCard (cardElement) {
+function addCard (cardElement) {
   photos.prepend(cardElement);
 }
 
@@ -170,7 +169,7 @@ function popupCloseByClick(evt) {
 
 function closeOpenedPopup() {
   const openedPopup = document.querySelector('.popup_opened');
-  openedPopup.classList.remove('popup_opened');
+  closePopup(openedPopup);
 }
 
 function popupCloseByKeydown (evt) {
@@ -179,7 +178,7 @@ function popupCloseByKeydown (evt) {
   }
 }
 
-initialCards.forEach((item) => pushCard(addCard(item.name, item.link)));
+initialCards.forEach((item) => addCard(createCard(item.name, item.link)));
 
 
 
