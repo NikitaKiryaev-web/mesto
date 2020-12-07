@@ -1,7 +1,6 @@
 import {Card} from './Card.js';
 import {FormValidator} from './FormValidator.js';
-import {validationConfig} from './ValidationConfig.js';
-import {initialCards} from './InitialCards.js';
+import {validationConfig, initialCards} from './Constants.js';
 
 const editButton = document.querySelector('.profile__edit-button');
 const addButton = document.querySelector('.profile__add-button');
@@ -9,12 +8,10 @@ const popupProfile = document.querySelector('.popup_profile');
 const closeButtonProfile = popupProfile.querySelector('.popup__close');
 const nameField = popupProfile.querySelector('.popup__input_type_name');
 const professionField = popupProfile.querySelector('.popup__input_type_profession');
-const saveButtonProfile = popupProfile.querySelector('.popup__save-button');
 const nameTitle = document.querySelector('.profile__title');
 const professionTitle = document.querySelector('.profile__subtitle');
 const profileForm = popupProfile.querySelector('.popup__form');
 const popupCard = document.querySelector('.popup_card');
-const saveButtonCard = popupCard.querySelector('.popup__save-button');
 const closeButtonCard = popupCard.querySelector('.popup__close');
 const cardForm = popupCard.querySelector('.popup__form_card');
 const photos = document.querySelector('.photos');
@@ -28,7 +25,7 @@ export const popupDescription = popupImage.querySelector('.popup__description');
 
 
 // Функция очистки сообщений ошибок при повторном открытии попапа
-function clearErrors (popup) {
+/*function clearErrors (popup) {
   const errors = Array.from(popup.querySelectorAll('.popup__error'));
   const inputs = Array.from(popup.querySelectorAll('.popup__input'));
   errors.forEach((error) => {
@@ -38,7 +35,7 @@ function clearErrors (popup) {
   inputs.forEach((input) => {
     input.classList.remove('popup__input_type_error');
   });
-}
+}*/
 
 
 
@@ -60,19 +57,17 @@ function closePopup(popup) {
 function showPopupProfile() {
   nameField.value = nameTitle.textContent;
   professionField.value = professionTitle.textContent;
-  saveButtonProfile.classList.remove('popup__save-button_disabled');
-  saveButtonProfile.disabled = false;
-  clearErrors(popupProfile);
+  ProfileValidation.setButtonStateActive();
+  ProfileValidation.clearErrors();
   showPopup(popupProfile);
 };
 
 function showPopupCard() {
   titleField.value = '';
   urlField.value = '';
-  clearErrors(popupCard);
+  CardValidation.setButtonStateDisabled();
+  CardValidation.clearErrors();
   showPopup(popupCard);
-  saveButtonCard.classList.add('popup__save-button_disabled');
-  saveButtonCard.disabled = true;
 };
 
  export function showPopupImage(link, name) {
@@ -97,7 +92,6 @@ function cardFormSubmit() {
   const newCard = new Card(name, link, '#card-template');
   const card = newCard.createCard();
   addCard(card);
-
   closePopup(popupCard);
 }
 
@@ -109,7 +103,7 @@ function addCard (cardElement) {
 }
 
 function popupCloseByClick(evt) {
-  if (evt.target.classList.contains('popup')) {
+  if (evt.target.classList.contains('popup_opened')) {
     closeOpenedPopup();
   }
 }
