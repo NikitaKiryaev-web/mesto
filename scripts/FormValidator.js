@@ -29,12 +29,10 @@ export class FormValidator {
 
   _setButtonState(isActive) {
     if (!isActive) {
-      this._button.classList.add(this._config.inactiveButtonClass);
-      this._button.disabled = true;
+      this.setButtonStateDisabled();
     }
     else {
-      this._button.classList.remove(this._config.inactiveButtonClass);
-      this._button.disabled = false;
+      this.setButtonStateActive();
     }
   }
 
@@ -59,9 +57,8 @@ export class FormValidator {
   }
 
   clearErrors() {
-    const errors = Array.from(this._form.querySelectorAll('.popup__error'));
-    errors.forEach((error) => {
-      error.textContent = '';
+    this._inputList.forEach((input) => {
+      this._hideError(input);
     });
 
     this._inputList.forEach((input) => {
