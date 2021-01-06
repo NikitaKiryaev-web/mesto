@@ -1,10 +1,10 @@
-import {showPopupImage} from './index.js';
-
+//import {showPopupImage} from '../pages/index.js';
 export class Card {
-  constructor(title, link, cardSelector) {
+  constructor({title, link, handleCardClick}, cardSelector) {
     this._title = title;
     this._link = link;
     this._cardSelector = cardSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
@@ -20,17 +20,14 @@ export class Card {
     event.target.classList.toggle('photos__like-button_active');
   }
 
-  _showPopupImage() {
+ /* _showPopupImage() {
     showPopupImage(this._link, this._title);
-  }
+  }*/
 
   _setEventListeners() {
     this._element.querySelector('.photos__like-button').addEventListener('click', this._addLike);
     this._element.querySelector('.photos__delete-button').addEventListener('click', this._deleteCard);
-    this._cardImage.addEventListener('click',() => {
-       this._showPopupImage(); 
-      });
-
+    this._cardImage.addEventListener('click',this._handleCardClick);
   }
 
   createCard() {
