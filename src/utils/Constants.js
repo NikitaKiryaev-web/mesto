@@ -7,6 +7,7 @@ export const validationConfig = {
 };
 
 const editButton = document.querySelector('.profile__edit-button');
+const editAvatarButton = document.querySelector('.profile__avatar-button');
 const addButton = document.querySelector('.profile__add-button');
 const popupProfile = document.querySelector('.popup_profile');
 
@@ -15,8 +16,10 @@ const professionField = popupProfile.querySelector('.popup__input_type_professio
 const profileForm = popupProfile.querySelector('.popup__form');
 const popupCard = document.querySelector('.popup_card');
 const cardForm = popupCard.querySelector('.popup__form_card');
+const avatarForm = document.querySelector('.popup__form_avatar');
+const deleteButton = document.querySelector('.photos__delete-button');
 
-export {editButton, addButton, popupProfile, nameField, professionField, profileForm, cardForm, popupCard}
+export {editButton, deleteButton, editAvatarButton, addButton, popupProfile, nameField, professionField, profileForm, cardForm, avatarForm, popupCard}
 
 export const initialCards = [
   {
