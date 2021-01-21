@@ -24,6 +24,7 @@ handlerSubmit: item => {
   api.editProfileAvatar(item)
     .then(res => {
       userData.setUserAvatar(res)
+      popupWithAvatar.close();
     })
     .catch(err => {
       console.log(err);
@@ -41,6 +42,7 @@ const popupWithProfile = new PopupWithForm({popupSelector: '.popup_profile',
    api.editProfile(item)
     .then(res => {
       userData.setUserInfo(res)
+      popupWithProfile.close();
     })
     .catch(err => {
       console.log(err);
@@ -57,6 +59,7 @@ const popupDeleteCard = new PopupSubmit({popupSelector: '.popup_delete-card', ha
   api.deleteCard(card.getCardId())
     .then(res => {
       card.deleteCard();
+      popupDeleteCard.close();
     })
     .catch(err => {
       console.log(err);
@@ -76,6 +79,7 @@ handlerSubmit: (item) => {
   .then(res => {
     const card = newCard(res);
     cardSection.addItem(card);
+    popupCreateCard.close();
   })
   .catch(err => {
     console.log(err);
@@ -90,15 +94,6 @@ const cardSection = new Section({renderer: (item) => {
   const card = newCard(item);
   cardSection.addItem(card);
 }}, '.photos')
-
-api.getInitialCards()
-  .then(res => {
-    cardSection.setItems(res);
-  })
-  .catch(err => {
-    console.log(err);
-  })
-
 
 function newCard(item) {
   const card = new Card ({
@@ -150,16 +145,16 @@ function showPopupAvatar() {
   popupWithAvatar.open();
 }
 
-
-
-api.getProfileInfo()
-  .then(response => {
-    userData.setUserInfo(response);
-    userData.setUserAvatar(response);
-  })
-  .catch(err => {
-    console.log(err);
-  })
+  Promise.all([api.getProfileInfo(), api.getInitialCards()])
+    .then(([profileInfo, initialCards]) => {
+      userData.setUserInfo(profileInfo);
+      userData.setUserAvatar(profileInfo);
+      cardSection.setItems(initialCards);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+    
 
 
 const ProfileValidation = new FormValidator(profileForm, validationConfig);

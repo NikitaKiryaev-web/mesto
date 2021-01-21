@@ -4,6 +4,14 @@ export default class Api {
     this._token = options.token;
   }
 
+  _getOriginalResponse(res) {
+    if(res.ok) {
+      return res.json();
+    }
+    
+    return Promise.reject(`Error: ${res.status} ${res.statusText}`);    
+  } 
+
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: {
@@ -12,11 +20,7 @@ export default class Api {
     }
     )
     .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      
-      return Promise.reject(`Error: ${res.status} ${res.statusText}`);     
+      return this._getOriginalResponse(res);     
     })
      
   }
@@ -29,10 +33,7 @@ export default class Api {
       }
     })
     .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status} ${res.statusText}`)
+      return this._getOriginalResponse(res);
     })
   }
 
@@ -49,11 +50,7 @@ export default class Api {
       })
     })
     .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      
-        return Promise.reject(`Error: ${res.status} ${res.statusText}`);
+      return this._getOriginalResponse(res);
       
     })
     
@@ -72,11 +69,7 @@ export default class Api {
       })
     })
     .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      
-        return Promise.reject(`Error: ${res.status} ${res.statusText}`);
+      return this._getOriginalResponse(res);
       
     })
     
@@ -94,10 +87,7 @@ export default class Api {
       })
     })
     .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status} ${res.statusText}`);
+      return this._getOriginalResponse(res);
     })
   }
 
@@ -110,10 +100,7 @@ export default class Api {
       }
     })
     .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status} ${res.statusText}`);
+      return this._getOriginalResponse(res);
     })
   }
 
@@ -126,10 +113,7 @@ export default class Api {
       }
     })
     .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status} ${res.statusText}`);
+      return this._getOriginalResponse(res);
     })
   }
 
@@ -142,10 +126,7 @@ export default class Api {
       }
     })
     .then(res => {
-      if(res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status} ${res.statusText}`);
+      return this._getOriginalResponse(res);
     })
   }
 
