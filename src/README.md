@@ -29,4 +29,4 @@
 
 **Где посмотреть**
 
-- [Ссылка на gh pages](https://nikitakiryaev-web.github.io/mesto/)
+- [Ссылка на gh pages](https://nikitakiryaev-web.github.io/mesto)
