@@ -18,7 +18,7 @@
   "bugs": {
     "url": "https://github.com/NikitaKiryaev-web/mesto/issues"
   },
-  "homepage": "https://nikitakiryaev-web.github.io/mesto",
+  "homepage": "https://NikitaKiryaev-web.github.io/mesto",
   "devDependencies": {
     "@babel/core": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
